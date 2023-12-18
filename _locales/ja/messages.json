@@ -1,4 +1,15 @@
 {
   "extensionName": { "message": "WebExtensions Sync Messenger" },
-  "extensionDescription": { "message": "WebExtensionsアドオンに対して、デバイス間でのメッセージ送受信機能を提供します。" }
+  "extensionDescription": { "message": "WebExtensionsアドオンに対して、デバイス間でのメッセージ送受信機能を提供します。" },
+
+  "syncDeviceDefaultName": { "message": "$PLATFORM$ の $BROWSER$",
+    "placeholders": {
+      "PLATFORM": { "content": "$1", "example": "Firefox" },
+      "BROWSER":  { "content": "$2", "example": "Windows" }
+    }},
+  "syncDeviceMissingDeviceName": { "message": "名前が設定されていない端末" },
+  "syncDeviceUnknownDevice":     { "message": "不明な端末" },
+  "syncAvailable_notification_title":   { "message": "アドオンからのメッセージを他の端末に送れます" },
+  "syncAvailable_notification_message": { "message": "他の端末との間でアドオンからメッセージを送受信できます。ここをクリックして、この端末に分かりやすい名前を設定してください。" },
+  "syncAvailable_notification_message_linux": { "message": "他の端末との間でアドオンからのメッセージを送受信できます。ボタンをクリックして、この端末に分かりやすい名前を設定してください。" }
 }

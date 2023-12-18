@@ -1,4 +1,15 @@
 {
   "extensionName": { "message": "WebExtensions Sync Messenger" },
-  "extensionDescription": { "message": "Provides ability to send/receive messages between devices, from WebExtensions addons." }
+  "extensionDescription": { "message": "Provides ability to send/receive messages between devices, from WebExtensions addons." },
+
+  "syncDeviceDefaultName": { "message": "$BROWSER$ on $PLATFORM$",
+    "placeholders": {
+      "PLATFORM": { "content": "$1", "example": "Firefox" },
+      "BROWSER":  { "content": "$2", "example": "Windows" }
+    }},
+  "syncDeviceMissingDeviceName": { "message": "an unnamed device" },
+  "syncDeviceUnknownDevice":     { "message": "an unknown device" },
+  "syncAvailable_notification_title":   { "message": "Messages from addons are sendable to other devices now." },
+  "syncAvailable_notification_message": { "message": "Messages from addons can be transferred between your devices. Please click here to set an identifiable name to this device." },
+  "syncAvailable_notification_message_linux": { "message": "Messages from addons can be transferred between your devices. Please click the button to set an identifiable name to this device." }
 }
