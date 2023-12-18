@@ -1,4 +1,4 @@
 {
-  "extensionName": { "message": "Tabs Sender/Receiver" },
-  "extensionDescription": { "message": "Provides ability to send/receive tabs between devices, from WebExtensions addons." }
+  "extensionName": { "message": "WebExtensions Sync Messenger" },
+  "extensionDescription": { "message": "Provides ability to send/receive messages between devices, from WebExtensions addons." }
 }

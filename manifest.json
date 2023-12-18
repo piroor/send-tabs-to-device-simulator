@@ -9,7 +9,7 @@
   "default_locale": "en",
   "applications": {
     "gecko": {
-      "id": "abs-sender-receiver@piro.sakura.ne.jp",
+      "id": "we-sync-messenger@piro.sakura.ne.jp",
       "strict_min_version": "115.0"
     }
   }
