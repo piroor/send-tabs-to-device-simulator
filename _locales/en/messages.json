@@ -1,0 +1,4 @@
+{
+  "extensionName": { "message": "Tabs Sender/Receiver" },
+  "extensionDescription": { "message": "Provides ability to send/receive tabs between devices, from WebExtensions addons." }
+}

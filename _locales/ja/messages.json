@@ -1,0 +1,4 @@
+{
+  "extensionName": { "message": "Tabs Sender/Receiver" },
+  "extensionDescription": { "message": "WebExtensionsアドオンに対して、デバイス間でのタブの送受信機能を提供します。" }
+}

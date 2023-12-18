@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "0.1",
+  "description": "__MSG_extensionDescription__",
+  "permissions": [
+    "storage"
+  ],
+  "default_locale": "en",
+  "applications": {
+    "gecko": {
+      "id": "abs-sender-receiver@piro.sakura.ne.jp",
+      "strict_min_version": "115.0"
+    }
+  }
+}
