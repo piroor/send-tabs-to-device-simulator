@@ -1,0 +1,140 @@
+/*
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+
+@import url(/resources/ui-base.css);
+@import url(/resources/ui-color.css);
+
+:root > * {
+  transition: opacity 0.25s ease-out;
+}
+:root:not(.initialized) > * {
+  opacity: 0;
+}
+
+/*
+body {
+  background: var(--in-content-box-background);
+  color: var(--text-color);
+}
+*/
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--in-content-box-background);
+    color: var(--text-color);
+  }
+}
+
+em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+p, ul {
+  margin: 0 0 0.5em 0;
+  padding: 0;
+}
+
+ul,
+ul li {
+  list-style: none;
+}
+
+p.sub,
+div.sub {
+  padding-left: 2em;
+}
+
+ul p.sub,
+ul div.sub p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+label[disabled="true"],
+input[disabled="true"] {
+  opacity: 0.5;
+}
+label[disabled="true"] input,
+label[disabled="true"] button {
+  opacity: 1;
+}
+
+label.has-checkbox:not(.inline),
+label.has-radio:not(.inline) {
+  margin-left: 2em;
+  text-indent: -2em;
+  display: block;
+  width: -moz-fit-content;
+}
+
+
+label input[type="radio"] ~ img,
+label input[type="checkbox"] ~ img {
+  border: 1px solid ThreeDShadow;
+  vertical-align: middle;
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
+}
+
+#syncTabsToDeviceOptions label input[type="radio"] ~ img {
+  border: 0 none;
+}
+
+
+fieldset.collapsible.collapsed > *:not(legend):not(div) /* "div" is for the container of "import" and "export" buttons */ {
+  display: none;
+}
+
+fieldset.collapsible > legend::before,
+body > section > h1:first-child::before {
+  content: "▼";
+  display: inline-block;
+  font-size: 65%;
+  margin-right: 0.5em;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+fieldset.collapsible.collapsed > legend::before,
+body > section.collapsed > h1:first-child::before {
+  transform: rotate(-90deg);
+}
+
+
+body > section {
+  margin-top: 1em;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+body > section:not(.collapsed) {
+  max-height: none !important;
+}
+
+body > section > h1:first-child {
+  margin-top: 0;
+  cursor: pointer;
+}
+
+body > section > h1:first-child ~ * {
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
+}
+body > section.collapsed > h1:first-child ~ * {
+  opacity: 0;
+}
+
+
+
+:target {
+  box-shadow: 0 0 0.5em highlight;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}

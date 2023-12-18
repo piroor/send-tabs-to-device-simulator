@@ -4,3 +4,9 @@
 [submodule "submodules/webextensions-lib-event-listener-manager"]
 	path = submodules/webextensions-lib-event-listener-manager
 	url = https://github.com/piroor/webextensions-lib-event-listener-manager
+[submodule "submodules/webextensions-lib-l10n"]
+	path = submodules/webextensions-lib-l10n
+	url = https://github.com/piroor/webextensions-lib-l10n
+[submodule "submodules/webextensions-lib-options"]
+	path = submodules/webextensions-lib-options
+	url = https://github.com/piroor/webextensions-lib-options

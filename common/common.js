@@ -337,6 +337,14 @@ export function countMatched(values, matcher) {
   return count;
 }
 
+export function sanitizeForHTMLText(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 
 export function isLinux() {
   return /^Linux/i.test(navigator.platform);
