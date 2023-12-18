@@ -117,10 +117,6 @@ function toHumanReadableOSName(os) {
 
 configs.$addObserver(key => {
   switch (key) {
-    case 'syncUnsendableUrlPattern':
-      isSendableTab.unsendableUrlMatcher = null;
-      break;
-
     default:
       break;
   }
@@ -309,15 +305,4 @@ export function getDeviceName(id) {
   if (!(id in devices) || !devices[id])
     return browser.i18n.getMessage('syncDeviceUnknownDevice');
   return String(devices[id].name || '').trim() || browser.i18n.getMessage('syncDeviceMissingDeviceName');
-}
-
-// https://searchfox.org/mozilla-central/rev/d866b96d74ec2a63f09ee418f048d23f4fd379a2/browser/base/content/browser-sync.js#1176
-export function isSendableTab(tab) {
-  if (!tab.url ||
-      tab.url.length > 65535)
-    return false;
-
-  if (!isSendableTab.unsendableUrlMatcher)
-    isSendableTab.unsendableUrlMatcher = new RegExp(configs.syncUnsendableUrlPattern);
-  return !isSendableTab.unsendableUrlMatcher.test(tab.url);
 }
