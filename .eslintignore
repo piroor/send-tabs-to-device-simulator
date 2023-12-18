@@ -3,3 +3,4 @@
 
 # The Makefile will copy external libraries into this directory
 extlib/
+submodules/
