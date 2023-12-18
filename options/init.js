@@ -11,12 +11,10 @@ import '/extlib/l10n.js';
 import {
   DEVICE_SPECIFIC_CONFIG_KEYS,
   log,
-  wait,
   configs,
   sanitizeForHTMLText,
 } from '/common/common.js';
 
-import * as Constants from '/common/constants.js';
 import * as Sync from '/common/sync.js';
 
 log.context = 'Options';
@@ -44,7 +42,7 @@ const options = new Options(configs, {
 document.title = browser.i18n.getMessage('config_title');
 
 function onConfigChanged(key) {
-  const value = configs[key];
+  //const value = configs[key];
   switch (key) {
     case 'syncDeviceInfo': {
       const name = (configs.syncDeviceInfo || {}).name || '';
