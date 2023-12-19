@@ -5,3 +5,26 @@
 */
 'use strict';
 
+import * as Sync from '/common/sync.js';
+
+browser.runtime.onInstalled.addListener(() => {
+  console.log('on installed');
+});
+
+Sync.onMessage.addListener(message => {
+  console.log('Sync.onMessage ', message);
+});
+
+Sync.onNewDevice.addListener(info => {
+  console.log('Sync.onNewDevice ', info);
+});
+
+Sync.onUpdatedDevice.addListener(info => {
+  console.log('Sync.onUpdatedDevice ', info);
+});
+
+Sync.onObsoleteDevice.addListener(info => {
+  console.log('Sync.onObsoleteDevice ', info);
+});
+
+
