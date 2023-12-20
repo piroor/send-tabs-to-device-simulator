@@ -103,6 +103,7 @@ export async function init() {
   for (const change of preChanges) {
     onConfigChanged(change.key, change.value);
   }
+  preChanges = [];
 }
 
 export async function generateDeviceInfo({ name, icon } = {}) {
