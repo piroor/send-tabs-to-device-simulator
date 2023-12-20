@@ -4,7 +4,8 @@
   "version": "0.1",
   "description": "__MSG_extensionDescription__",
   "permissions": [
-    "storage"
+    "storage",
+    "notifications"
   ],
   "background": {
     "page": "background/background.html",
