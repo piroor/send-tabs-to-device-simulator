@@ -7,9 +7,7 @@
 
 import * as Sync from '/common/sync.js';
 
-browser.runtime.onInstalled.addListener(() => {
-  console.log('on installed');
-});
+Sync.init();
 
 Sync.onMessage.addListener(message => {
   console.log('Sync.onMessage ', message);
