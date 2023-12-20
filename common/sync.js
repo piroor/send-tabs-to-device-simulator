@@ -76,6 +76,11 @@ export async function init() {
         break;
 
       case 'syncDeviceInfo':
+        if (configs.syncDeviceInfo &&
+            mMyDeviceInfo &&
+            configs.syncDeviceInfo.id == mMyDeviceInfo.id &&
+            configs.syncDeviceInfo.timestamp == mMyDeviceInfo.timestamp)
+          return; // ignore updating triggered by myself
         mMyDeviceInfo = null;
         updateSelf();
         break;
@@ -131,7 +136,7 @@ async function updateSelf() {
   await ensureDeviceInfoInitialized();
   configs.syncDeviceInfo = mMyDeviceInfo = {
     ...clone(configs.syncDeviceInfo),
-    timestamp: Date.now()
+    timestamp: Date.now(),
   };
 
   await updateDevices();
