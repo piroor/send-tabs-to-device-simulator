@@ -50,7 +50,7 @@ let preChanges = [];
 
 function onConfigChanged(key, value = undefined) {
   if (!initialized) {
-    preChanges.push(key, value === undefined ? configs[key] : null);
+    preChanges.push({ key, value: value === undefined ? configs[key] : value });
     return;
   }
   switch (key) {
@@ -100,8 +100,8 @@ export async function init() {
   reserveToReceiveMessage();
   window.setInterval(updateSelf, 1000 * 60 * 60 * 24); // update info every day!
 
-  for (const [key, value] of preChanges) {
-    onConfigChanged(key, value);
+  for (const change of preChanges) {
+    onConfigChanged(change.key, change.value);
   }
 }
 
