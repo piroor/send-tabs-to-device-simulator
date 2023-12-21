@@ -36,19 +36,19 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
       break;
 
     case Constants.kAPI_TYPE_REGISTER_SELF:
-      return (async () => {
+      return configs.$loaded.then(() => {
         configs.knownExternalAddons = configs.knownExternalAddons.filter(addon => addon.id != sender.id).concat([{
           id:             sender.id,
           internalId:     sender.url.replace(/^moz-extension:\/\/([^\/]+)\/.*$/, '$1'),
           lastRegistered: Date.now(),
         }]);
-      })();
+      });
 
     case Constants.kAPI_TYPE_UNREGISTER_SELF:
-      return (async () => {
+      return configs.$loaded.then(() => {
         configs.knownExternalAddons = configs.knownExternalAddons.filter(addon => addon.id != sender.id);
         return true;
-      })();
+      });
 
   }
 });
@@ -75,6 +75,7 @@ Sync.onMessage.addListener(async message => {
 });
 
 async function sendGlobalNotificationMessage(message) {
+  await configs.$loaded;
   for (const addon of configs.knownExternalAddons) {
     try {
      await browser.runtime.sendMessage(addon.id, message);
