@@ -22,7 +22,6 @@ export const DEVICE_SPECIFIC_CONFIG_KEYS = mapAndFilter(`
   syncAvailableNotified
   syncDeviceInfo
   syncDevicesLocalCache
-  syncEnabled
   syncLastMessageTimestamp
   syncOtherDevicesDetected
 
@@ -60,7 +59,6 @@ export const configs = new Configs({
   chunkedSyncDataLocal7: '',
 
   debug:     false,
-  syncEnabled: true,
   logTimestamp: true,
 
   configsVersion: 0
@@ -70,10 +68,6 @@ export const configs = new Configs({
 
 configs.$addLocalLoadedObserver((key, value) => {
   switch (key) {
-    case 'syncEnabled':
-      configs.sync = !!value;
-      return;
-
     default:
       return;
   }
@@ -144,7 +138,7 @@ function joinChunkedStrings(chunks) {
 
 export function log(message, ...args)
 {
-  const useConsole = configs && configs.debug;
+  const useConsole = true;//configs && configs.debug;
   if (!useConsole)
     return;
 
