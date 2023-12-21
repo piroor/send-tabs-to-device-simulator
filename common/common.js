@@ -138,7 +138,7 @@ function joinChunkedStrings(chunks) {
 
 export function log(message, ...args)
 {
-  const useConsole = true;//configs && configs.debug;
+  const useConsole = configs && configs.debug;
   if (!useConsole)
     return;
 
