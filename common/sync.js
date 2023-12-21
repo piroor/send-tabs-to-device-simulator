@@ -252,7 +252,7 @@ async function receiveMessage() {
   }
 }
 
-export async function sendMessage(to, data) {
+export async function sendMessage(body, { to } = {}) {
   const myDeviceInfo = await getMyDeviceInfo();
   try {
     const messages = readMessages();
@@ -260,7 +260,7 @@ export async function sendMessage(to, data) {
       timestamp: Date.now(),
       from:      myDeviceInfo.id,
       to,
-      data
+      body,
     });
     log('sendMessage: queued messages => ', messages);
     writeMessages(messages);
