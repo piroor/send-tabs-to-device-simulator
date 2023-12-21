@@ -9,8 +9,40 @@ import * as Sync from '/common/sync.js';
 
 Sync.init();
 
+browser.runtime.onMessageExternal.addListener((message, sender) => {
+  if (!message ||
+      typeof message != 'object' ||
+      typeof message.type != 'string')
+    return;
+
+  switch (message.type) {
+    case Constants.kAPI_TYPE_SEND_MESSAGE:
+      Sync.sendMessage(
+        {
+          senderId: sender.id,
+          body:     message.body,
+        },
+        {
+          to: message.to,
+        }
+      );
+      break;
+  }
+});
+
 Sync.onMessage.addListener(message => {
   console.log('Sync.onMessage ', message);
+
+  if (message.body &&
+      message.body.senderId) {
+    browser.runtime.sendMessage(message.body.senderId, {
+      type:      Constants.kAPI_TYPE_RECEIVE_MESSAGE,
+      timestamp: message.timestamp,
+      from:      message.from,
+      to:        message.to,
+      body:      message.body.body,
+    });
+  }
 });
 
 Sync.onNewDevice.addListener(info => {

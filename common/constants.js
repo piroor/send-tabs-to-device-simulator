@@ -17,3 +17,5 @@ export const kNOTIFICATION_DEFAULT_ICON = '/resources/64x64.svg#default-bright';
 // Use 6 * 1024 instead of 8 * 1024 (max of the quota) for safety.
 export const kSYNC_STORAGE_ITEM_SAFE_QUOTA = 6 * 1024;
 
+export const kAPI_TYPE_SEND_MESSAGE    = 'send-message';
+export const kAPI_TYPE_RECEIVE_MESSAGE = 'receive-message';
