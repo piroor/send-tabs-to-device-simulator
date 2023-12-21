@@ -74,12 +74,14 @@ export const configs = new Configs({
   localKeys: DEVICE_SPECIFIC_CONFIG_KEYS,
 });
 
+/*
 configs.$addLocalLoadedObserver((key, value) => {
   switch (key) {
     default:
       return;
   }
 });
+*/
 
 // cleanup old data
 browser.storage.sync.remove(DEVICE_SPECIFIC_CONFIG_KEYS);
