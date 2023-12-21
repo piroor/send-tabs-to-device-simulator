@@ -7,7 +7,7 @@
 
 import {
   log,
-} from './common.js';
+} from '/common/common.js';
 import * as Constants from './constants.js';
 import * as Sync from '/common/sync.js';
 
