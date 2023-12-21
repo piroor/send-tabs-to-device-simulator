@@ -35,6 +35,11 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
       );
       break;
 
+    case Constants.kAPI_TYPE_LIST_DEVICES:
+      return configs.$loaded.then(() => {
+        return configs.syncDevices;
+      });
+
     case Constants.kAPI_TYPE_REGISTER_SELF:
       return configs.$loaded.then(() => {
         configs.knownExternalAddons = configs.knownExternalAddons.filter(addon => addon.id != sender.id).concat([{

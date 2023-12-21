@@ -19,6 +19,7 @@ export const kSYNC_STORAGE_ITEM_SAFE_QUOTA = 6 * 1024;
 
 export const kAPI_TYPE_PING            = 'ping';
 export const kAPI_TYPE_SEND_MESSAGE    = 'send-message';
+export const kAPI_TYPE_LIST_DEVICES    = 'list-devices';
 export const kAPI_TYPE_REGISTER_SELF   = 'register-self';
 export const kAPI_TYPE_UNREGISTER_SELF = 'unregister-self';
 export const kAPI_TYPE_NOTIFY_MESSAGE_RECEIVED = 'message-received';
