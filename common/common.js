@@ -107,7 +107,7 @@ export function setChunkedConfig(key, value) {
     slotsSize++;
   }
 
-  const chunks = chunkString(value, Constants.kSYNC_STORAGE_SAFE_QUOTA);
+  const chunks = chunkString(value, Constants.kSYNC_STORAGE_ITEM_SAFE_QUOTA);
   if (chunks.length > slotsSize)
     throw new Error('too large data');
 
