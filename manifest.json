@@ -4,8 +4,10 @@
   "version": "0.1",
   "description": "__MSG_extensionDescription__",
   "permissions": [
+    "contextualIdentities",
+    "notifications",
     "storage",
-    "notifications"
+    "tabs"
   ],
   "background": {
     "page": "background/background.html",
