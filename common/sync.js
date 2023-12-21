@@ -233,7 +233,8 @@ async function receiveMessage() {
     const restMessages = messages.filter(message => {
       if (message.timestamp <= configs.syncLastMessageTimestamp)
         return false;
-      if (message.to == myDeviceInfo.id) {
+      if (!message.to ||
+          message.to == myDeviceInfo.id) {
         log('receiveMessage receive: ', message);
         configs.syncLastMessageTimestamp = message.timestamp;
         onMessage.dispatch(message);
