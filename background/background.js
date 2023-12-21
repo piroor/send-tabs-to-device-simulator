@@ -5,6 +5,10 @@
 */
 'use strict';
 
+import {
+  log,
+} from './common.js';
+import * as Constants from './constants.js';
 import * as Sync from '/common/sync.js';
 
 Sync.init();
@@ -31,7 +35,7 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
 });
 
 Sync.onMessage.addListener(message => {
-  console.log('Sync.onMessage ', message);
+  log('Sync.onMessage ', message);
 
   if (message.body &&
       message.body.senderId) {
@@ -46,15 +50,15 @@ Sync.onMessage.addListener(message => {
 });
 
 Sync.onNewDevice.addListener(info => {
-  console.log('Sync.onNewDevice ', info);
+  log('Sync.onNewDevice ', info);
 });
 
 Sync.onUpdatedDevice.addListener(info => {
-  console.log('Sync.onUpdatedDevice ', info);
+  log('Sync.onUpdatedDevice ', info);
 });
 
 Sync.onObsoleteDevice.addListener(info => {
-  console.log('Sync.onObsoleteDevice ', info);
+  log('Sync.onObsoleteDevice ', info);
 });
 
 
