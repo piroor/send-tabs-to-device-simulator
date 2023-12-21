@@ -25,6 +25,8 @@ export const DEVICE_SPECIFIC_CONFIG_KEYS = mapAndFilter(`
   syncLastMessageTimestamp
   syncOtherDevicesDetected
 
+  knownExternalAddons
+
   debug
   logTimestamp
 `.trim().split('\n'), key => {
@@ -57,6 +59,9 @@ export const configs = new Configs({
   chunkedSyncDataLocal5: '',
   chunkedSyncDataLocal6: '',
   chunkedSyncDataLocal7: '',
+
+  // array of { id, internalId, lastRegistered }
+  knownExternalAddons: [],
 
   debug:     false,
   logTimestamp: true,
