@@ -111,12 +111,14 @@ export async function generateDeviceInfo({ name, icon } = {}) {
     browser.runtime.getPlatformInfo(),
     browser.runtime.getBrowserInfo()
   ]);
+  const platform = toHumanReadableOSName(platformInfo.os);
   return {
     id:   `device-${Date.now()}-${Math.round(Math.random() * 65000)}`,
+    platform,
     name: name === undefined ?
-      browser.i18n.getMessage('syncDeviceDefaultName', [toHumanReadableOSName(platformInfo.os), browserInfo.name]) :
+      browser.i18n.getMessage('syncDeviceDefaultName', [platform, browserInfo.name]) :
       (name || null),
-    icon: icon || 'device-desktop'
+    icon: icon || (platform == 'Android') ? 'device-mobile' : 'device-desktop',
   };
 }
 
