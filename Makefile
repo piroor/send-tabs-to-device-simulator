@@ -20,7 +20,7 @@ format: install_dependency
 
 xpi: init_extlib install_extlib lint
 	rm -f ./*.xpi
-	zip -r -9 we-sync-messenger.xpi manifest.json _locales common options background resources extlib -x '*/.*' >/dev/null 2>/dev/null
+	zip -r -9 send-tabs-to-device-simulator.xpi manifest.json _locales common options background resources extlib -x '*/.*' >/dev/null 2>/dev/null
 
 init_extlib:
 	git submodule update --init

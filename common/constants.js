@@ -5,8 +5,8 @@
 */
 'use strict';
 
-export const kSHORTHAND_CUSTOM_URI = /^ext\+we-sync-messenger:([^:?#]+)(?:[:?]([^#]*))?(#.*)?$/;
-export const kSHORTHAND_ABOUT_URI = /^about:we-sync-messenger-([^?]+)/;
+export const kSHORTHAND_CUSTOM_URI = /^ext\+send-tabs-to-device-simulator:([^:?#]+)(?:[:?]([^#]*))?(#.*)?$/;
+export const kSHORTHAND_ABOUT_URI = /^about:send-tabs-to-device-simulator-([^?]+)/;
 export const kSHORTHAND_URIS = {
   options: browser.runtime.getURL('options/options.html?independent=true'),
 };

@@ -1,6 +1,6 @@
 {
-  "extensionName": { "message": "WebExtensions Sync Messenger" },
-  "extensionDescription": { "message": "WebExtensionsアドオンに対して、デバイス間でのメッセージ送受信機能を提供します。" },
+  "extensionName": { "message": "Send Tabs to Device Simulator" },
+  "extensionDescription": { "message": "WebExtensionsアドオンに対して、デバイス間でのタブの送受信、および汎用のメッセージ送受信機能を提供します。" },
 
   "syncDeviceDefaultName": { "message": "$PLATFORM$ の $BROWSER$",
     "placeholders": {

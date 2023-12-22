@@ -1,5 +1,5 @@
 {
-  "name": "we-sync-messenger",
+  "name": "send-tabs-to-device-simulator",
   "version": "0.0.0",
   "engines": {
     "node": ">=13.2"

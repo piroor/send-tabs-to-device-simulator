@@ -19,7 +19,7 @@
   "default_locale": "en",
   "browser_specific_settings": {
     "gecko": {
-      "id": "we-sync-messenger@piro.sakura.ne.jp",
+      "id": "send-tabs-to-device-simulator@piro.sakura.ne.jp",
       "strict_min_version": "115.0"
     },
     "gecko_android": {

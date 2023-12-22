@@ -1,6 +1,6 @@
 {
-  "extensionName": { "message": "WebExtensions Sync Messenger" },
-  "extensionDescription": { "message": "Provides ability to send/receive messages between devices, from WebExtensions addons." },
+  "extensionName": { "message": "Send Tabs to Device Simulator" },
+  "extensionDescription": { "message": "Provides ability to send/receive tabs and other messages between devices, from WebExtensions addons." },
 
   "syncDeviceDefaultName": { "message": "$BROWSER$ on $PLATFORM$",
     "placeholders": {
