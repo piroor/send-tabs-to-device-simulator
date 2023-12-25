@@ -41,9 +41,11 @@ flowchart TD;
   ReduceCost-->|No|NoNeed
 ```
 
-## API
+## API for other addons
 
-### Get devices information
+### Common
+
+#### Get devices information
 
 ```javascript
 const SIMULATOR_ID = 'send-tabs-to-device-simulator@piro.sakura.ne.jp';
@@ -67,26 +69,9 @@ devices ==
 */
 ```
 
-### Send a message to a specific device
+### Sender side
 
-```javascript
-const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, {
-  type: 'send-message',
-  to:   'device-1703208629205-41500', // device ID
-  body: { // arbitrary JSONable object
-    message: 'Hello, world!'
-  },
-});
-/*
-succeeded == true (success) or false (failure)
-*/
-```
-
-Please note that the returned value `true` does not mean the message is successfully sent.
-For example it will become `true` even if there is no such device specified with the ID.
-
-
-### Send tabs to a specific device
+#### Send tabs to a specific device
 
 ```javascript
 const multiselectedTabs = await browser.tabs.query({ highlighted: true });
@@ -108,3 +93,70 @@ succeeded == true (success) or false (failure)
 
 Please note that the returned value `true` does not mean tabs are successfully sent.
 For example it will become `true` even if there is no such device specified with the ID.
+
+#### Send a generic message to a specific device
+
+```javascript
+const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, {
+  type: 'send-message',
+  to:   'device-1703208629205-41500', // device ID
+  body: { // arbitrary JSONable object
+    message: 'Hello, world!'
+  },
+});
+/*
+succeeded == true (success) or false (failure)
+*/
+```
+
+Please note that the returned value `true` does not mean the message is successfully sent.
+For example it will become `true` even if there is no such device specified with the ID.
+
+### Receiver side
+
+#### Receive tabs from other devices
+
+```javascript
+browser.runtime.onMessageExternal.addListener((message, sender) => {
+  switch (sender.id) {
+    case SIMULATOR_ID:
+      switch (message.type) {
+        case 'tabs-received':
+          console.log('TABS ARE RECEIVED ', {
+            from:      message.from, // ID of the sender device
+            to:        message.to, // ID of the receiver device, regularly it means myself.
+            timestamp: message.timestamp, // when the message was sent
+            tabs:      message.tabs, // an array of tabs.Tab
+          });
+          const allowed = window.confirm('Do you really receive tabs from another device?');
+          return Promise.resolve(allowed);
+      }
+      break;
+  }
+});
+```
+
+If your addon returns `false` explicitly by the listener, then this addon won't open received tabs.
+Otherwise tabs are opened on the device.
+
+#### Receive generic messages from other devices
+
+```javascript
+browser.runtime.onMessageExternal.addListener((message, sender) => {
+  switch (sender.id) {
+    case SIMULATOR_ID:
+      switch (message.type) {
+        case 'message-received':
+          console.log('NEW MESSAGE ', {
+            from:      message.from, // ID of the sender device
+            to:        message.to, // ID of the receiver device, regularly it means myself.
+            timestamp: message.timestamp, // when the message was sent
+            body:      message.body, // arbitrary JSONable object sent from the sender device
+          });
+          break;
+      }
+      break;
+  }
+});
+```
+

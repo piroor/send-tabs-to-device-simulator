@@ -24,6 +24,7 @@ export const kAPI_TYPE_REGISTER_SELF   = 'register-self';
 export const kAPI_TYPE_UNREGISTER_SELF = 'unregister-self';
 export const kAPI_TYPE_SEND_TABS       = 'send-tabs';
 
+export const kAPI_TYPE_NOTIFY_TABS_RECEIVED    = 'tabs-received';
 export const kAPI_TYPE_NOTIFY_MESSAGE_RECEIVED = 'message-received';
 export const kAPI_TYPE_NOTIFY_DEVICE_ADDED     = 'device-added';
 export const kAPI_TYPE_NOTIFY_DEVICE_UPDATED   = 'device-updated';

@@ -72,6 +72,32 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
   }
 });
 
+const ALLOWED_TAB_PROPERTIES = new Set([
+  'active',
+  'attention',
+  'audible',
+  'autoDiscardable',
+  'discarded',
+  'height',
+  'hidden',
+  'highlighted',
+  'id',
+  'incognito',
+  'index',
+  'isArticle',
+  'isInReaderMode',
+  'lastAccessed',
+  'mutedInfo',
+  'openerTabId',
+  'pinned',
+  'selected',
+  'sessionId',
+  'status',
+  'successorId',
+  'width',
+  'windowId',
+]);
+
 Sync.onMessage.addListener(async message => {
   log('Sync.onMessage ', message);
 
@@ -98,15 +124,33 @@ Sync.onMessage.addListener(async message => {
       }
       catch(error) {
         log('failed to deliver received message: unregister addon ', message.body.senderId, error);
-        configs.knownExternalAddons = configs.knownExternalAddons.filter(knownAddon => knownAddon.id != message.body.  senderId);
+        configs.knownExternalAddons = configs.knownExternalAddons.filter(knownAddon => knownAddon.id != message.body.senderId);
       }
       break;
 
     case Constants.kAPI_TYPE_SEND_TABS:
-      receiveTabs({
-        tabs: body.tabs,
-        from: message.from,
-      });
+      try {
+        browser.runtime.sendMessage(message.body.senderId, {
+          type:      Constants.kAPI_TYPE_NOTIFY_TABS_RECEIVED,
+          timestamp: message.timestamp,
+          from:      message.from,
+          to:        message.to,
+          tabs:      body.tabs,
+        }).then(results => {
+          if (results.some(result => result === false)) {
+            log('receiving of tabs is canceled by the receiver addon ', message.body.senderId);
+            return;
+          }
+          receiveTabs({
+            tabs: body.tabs,
+            from: message.from,
+          })
+        });
+      }
+      catch(error) {
+        log('failed to notify received tabs: unregister addon ', message.body.senderId, error);
+        configs.knownExternalAddons = configs.knownExternalAddons.filter(knownAddon => knownAddon.id != message.body.senderId);
+      }
       break;
   }
 
@@ -238,4 +282,5 @@ async function receiveTabs({ tabs, from } = {}) {
     openedTabs.push(openedTab);
     index++;
   }
+  return openedTabs;
 }
