@@ -41,7 +41,7 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
     case Constants.kAPI_TYPE_LIST_DEVICES:
       return configs.$loaded.then(async () => {
         const myDeviceInfo = await Sync.getMyDeviceInfo();
-        return Object.entries(configs.syncDevices).map(([id, device]) => {
+        return Object.entries(configs.syncDevices).map(([_id, device]) => {
           device.myself = device.id == myDeviceInfo.id;
           return device;
         });
@@ -70,13 +70,13 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
           senderId: sender.id,
           to:       message.to,
         })
-        .then(() => {
-          return true;
-        })
-        .catch(error => {
-          log('failed to send tabs: ', error);
-          return false;
-        });
+          .then(() => {
+            return true;
+          })
+          .catch(error => {
+            log('failed to send tabs: ', error);
+            return false;
+          });
       }
       catch(error) {
         log('failed to send tabs: ', error);
