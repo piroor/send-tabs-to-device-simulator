@@ -270,11 +270,13 @@ export async function sendMessage(body, { to } = {}) {
     });
     log('sendMessage: queued messages => ', messages);
     writeMessages(messages);
+    return true;
   }
   catch(error) {
     console.log('Sync.sendMessage: failed to send message ', error);
     writeMessages([]);
   }
+  return false;
 }
 
 function readMessages() {

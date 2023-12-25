@@ -26,7 +26,7 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
       return Promise.resolve(true);
 
     case Constants.kAPI_TYPE_SEND_MESSAGE:
-      Sync.sendMessage(
+      return Sync.sendMessage(
         {
           type:     Constants.kAPI_TYPE_SEND_MESSAGE,
           senderId: sender.id,
