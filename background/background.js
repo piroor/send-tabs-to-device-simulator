@@ -54,6 +54,7 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
           internalId:     sender.url.replace(/^moz-extension:\/\/([^\/]+)\/.*$/, '$1'),
           lastRegistered: Date.now(),
         }]);
+        return true;
       });
 
     case Constants.kAPI_TYPE_UNREGISTER_SELF:
@@ -63,11 +64,24 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
       });
 
     case Constants.kAPI_TYPE_SEND_TABS:
-      sendTabsToDevice({
-        tabs:     message.body.tabs || message.body.tabIds || [],
-        senderId: sender.id,
-        to:       message.to,
-      });
+      try {
+        return sendTabsToDevice({
+          tabs:     message.body.tabs || message.body.tabIds || [],
+          senderId: sender.id,
+          to:       message.to,
+        })
+        .then(() => {
+          return true;
+        })
+        .catch(error => {
+          log('failed to send tabs: ', error);
+          return false;
+        });
+      }
+      catch(error) {
+        log('failed to send tabs: ', error);
+        return false;
+      }
       break;
   }
 });
@@ -136,8 +150,8 @@ Sync.onMessage.addListener(async message => {
           from:      message.from,
           to:        message.to,
           tabs:      body.tabs,
-        }).then(results => {
-          if (results.some(result => result === false)) {
+        }).then(result => {
+          if (result === false)) {
             log('receiving of tabs is canceled by the receiver addon ', message.body.senderId);
             return;
           }
