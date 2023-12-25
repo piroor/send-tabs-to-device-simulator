@@ -48,8 +48,8 @@ flowchart TD;
 #### Get devices information
 
 ```javascript
-const SIMULATOR_ID = 'send-tabs-to-device-simulator@piro.sakura.ne.jp';
-const devices = await browser.runtime.sendMessage(SIMULATOR_ID, { type: 'list-devices' });
+const SEND_TABS_SIMULATOR_ID = 'send-tabs-to-device-simulator@piro.sakura.ne.jp';
+const devices = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { type: 'list-devices' });
 /*
 devices ==
   [
@@ -74,7 +74,7 @@ devices ==
 You need to register your addon to this addon, to receive some notification type messages.
 
 ```javascript
-const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, { type: 'register-self' });
+const succeeded = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { type: 'register-self' });
 ```
 
 #### Unregister your addon from this addon
@@ -82,7 +82,7 @@ const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, { type: 'regis
 You can unregister your addon from the known addons list in this addon.
 
 ```javascript
-const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, { type: 'unregister-self' });
+const succeeded = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { type: 'unregister-self' });
 ```
 
 #### Detect newly connected other device
@@ -92,7 +92,7 @@ This kind messages are delivered to your addon only when your addon is already r
 ```javascript
 browser.runtime.onMessageExternal.addListener((message, sender) => {
   switch (sender.id) {
-    case SIMULATOR_ID:
+    case SEND_TABS_SIMULATOR_ID:
       switch (message.type) {
         case 'device-added':
           console.log('NEW OTHER DEVICE IS ADDED: ', {
@@ -116,7 +116,7 @@ This kind messages are delivered to your addon only when your addon is already r
 ```javascript
 browser.runtime.onMessageExternal.addListener((message, sender) => {
   switch (sender.id) {
-    case SIMULATOR_ID:
+    case SEND_TABS_SIMULATOR_ID:
       switch (message.type) {
         case 'device-updated':
           console.log('DEVICE IS UPDATED: ', {
@@ -140,7 +140,7 @@ This kind messages are delivered to your addon only when your addon is already r
 ```javascript
 browser.runtime.onMessageExternal.addListener((message, sender) => {
   switch (sender.id) {
-    case SIMULATOR_ID:
+    case SEND_TABS_SIMULATOR_ID:
       switch (message.type) {
         case 'device-removed':
           console.log('DEVICE IS REMOVED: ', {
@@ -163,12 +163,12 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
 
 ```javascript
 const multiselectedTabs = await browser.tabs.query({ highlighted: true });
-const succeededWithTabs = await browser.runtime.sendMessage(SIMULATOR_ID, {
+const succeededWithTabs = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, {
   type: 'send-tabs',
   to:   'device-1703208629205-41500', // device ID
   tabs: multiselectedTabs,
 });
-const succeededWithTabIDs = await browser.runtime.sendMessage(SIMULATOR_ID, {
+const succeededWithTabIDs = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, {
   type: 'send-tabs',
   to:   'device-1703208629205-41500', // device ID
   tabIds: multiselectedTabs.map(tab => tab.id),
@@ -185,7 +185,7 @@ For example it will become `true` even if there is no such device specified with
 #### Send a generic message to a specific device
 
 ```javascript
-const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, {
+const succeeded = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, {
   type: 'send-message',
   to:   'device-1703208629205-41500', // device ID
   body: { // arbitrary JSONable object
@@ -207,7 +207,7 @@ For example it will become `true` even if there is no such device specified with
 ```javascript
 browser.runtime.onMessageExternal.addListener((message, sender) => {
   switch (sender.id) {
-    case SIMULATOR_ID:
+    case SEND_TABS_SIMULATOR_ID:
       switch (message.type) {
         case 'tabs-received':
           console.log('TABS ARE RECEIVED ', {
@@ -235,7 +235,7 @@ Messages will be notified to your addon, if any tabs are sent from another devic
 ```javascript
 browser.runtime.onMessageExternal.addListener((message, sender) => {
   switch (sender.id) {
-    case SIMULATOR_ID:
+    case SEND_TABS_SIMULATOR_ID:
       switch (message.type) {
         case 'message-received':
           console.log('NEW MESSAGE ', {
