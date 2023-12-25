@@ -11,25 +11,16 @@ But there is a problem: such addons cannot send tabs to Android devices, if the 
 Addons for Fenix have many restrictions, so some addons cannot support both Firefox (on desktop PC environments) and Fenix.
 This project aims to provide a small addon supporting both Desktop and Android, and providing APIs for other addons to send tabs between devices.
 
-## Usecases
+## Do you need to use this addon?
 
-### Send Tabs from Desktop to Desktop
+### Send Tabs from Desktop (to other devices: Desktop or Android)
 
 Does your addon have its own "Send Tabs to Device" feature?
 
 * Yes: You don't need to use this addon.
   * Of course you can reduce the cost to develop its owne sync feature, if your addon accepts dependency to this addon.
-* No: You can use this addon via its API. You can reduce the cost to develop any custom sync feature.
+* No: *You should use this addon via its API.*
 
+### Send Tabs from Android (to other devices: mainly Desktop)
 
-### Send Tabs from Desktop to Android
-
-Does your addon support both Desktop and Android, and have its own "Send Tabs to Device" feature?
-
-* Yes: You don't need to use this addon.
-  * Of course you can reduce the cost to develop its owne sync feature, if your addon accepts dependency to this addon.
-* No: You can use this addon via its API. You can reduce the cost to develop any custom sync feature.
-
-### Send Tabs from Android to Desktop
-
-You don't need to use this addon because Fenix's built-in feature  is the easiest way to send tabs from Android to Desktop.
+You don't need to use this addon because Fenix's built-in feature is the easiest way to send tabs from Android to Desktop.
