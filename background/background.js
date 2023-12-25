@@ -86,32 +86,6 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
   }
 });
 
-const ALLOWED_TAB_PROPERTIES = new Set([
-  'active',
-  'attention',
-  'audible',
-  'autoDiscardable',
-  'discarded',
-  'height',
-  'hidden',
-  'highlighted',
-  'id',
-  'incognito',
-  'index',
-  'isArticle',
-  'isInReaderMode',
-  'lastAccessed',
-  'mutedInfo',
-  'openerTabId',
-  'pinned',
-  'selected',
-  'sessionId',
-  'status',
-  'successorId',
-  'width',
-  'windowId',
-]);
-
 Sync.onMessage.addListener(async message => {
   log('Sync.onMessage ', message);
 
