@@ -40,3 +40,71 @@ flowchart TD;
   ReduceCost-->|Yes|Need
   ReduceCost-->|No|NoNeed
 ```
+
+## API
+
+### Get devices information
+
+```javascript
+const SIMULATOR_ID = 'send-tabs-to-device-simulator@piro.sakura.ne.jp';
+const devices = await browser.runtime.sendMessage(SIMULATOR_ID, { type: 'list-devices' });
+/*
+devices ==
+  [
+    { id:        "device-1703208629205-41500",
+      platform:  "Windows",
+      name:      "Firefox on Windows",
+      icon:      "device-desktop",
+      myself:    true,
+      timestamp: 1703492610680 },
+    { id:        "device-1703492776144-12236",
+      platform:  "Android",
+      name:      "Firefox on Android",
+      icon:      "device-mobile",
+      myself:    false,
+      timestamp: 1703492776418 }
+  ]
+*/
+```
+
+### Send a message to a specific device
+
+```javascript
+const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, {
+  type: 'send-message',
+  to:   'device-1703208629205-41500', // device ID
+  body: { // arbitrary JSONable object
+    message: 'Hello, world!'
+  },
+});
+/*
+succeeded == true (success) or false (failure)
+*/
+```
+
+Please note that the returned value `true` does not mean the message is successfully sent.
+For example it will become `true` even if there is no such device specified with the ID.
+
+
+### Send tabs to a specific device
+
+```javascript
+const multiselectedTabs = await browser.tabs.query({ highlighted: true });
+const succeededWithTabs = await browser.runtime.sendMessage(SIMULATOR_ID, {
+  type: 'send-tabs',
+  to:   'device-1703208629205-41500', // device ID
+  tabs: multiselectedTabs,
+});
+const succeededWithTabIDs = await browser.runtime.sendMessage(SIMULATOR_ID, {
+  type: 'send-tabs',
+  to:   'device-1703208629205-41500', // device ID
+  tabIds: multiselectedTabs.map(tab => tab.id),
+});
+
+/*
+succeeded == true (success) or false (failure)
+*/
+```
+
+Please note that the returned value `true` does not mean tabs are successfully sent.
+For example it will become `true` even if there is no such device specified with the ID.
