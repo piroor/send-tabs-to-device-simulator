@@ -16,14 +16,14 @@ This project aims to provide a small addon supporting both Desktop and Android, 
 ```mermaid
 %%{init: {"flowchart": {"htmlLabels": false}} }%%
 flowchart TD;
-  HasOwnSync{"Does your addon has
-  its own Sync feature?"}
+  HasOwnSync{{"Does your addon has
+  its own Sync feature?"}}
 
-  BothSupport{"Does your addon support
-  both Desktop and Android?"}
+  BothSupport{{"Does your addon support
+  both Desktop and Android?"}}
 
-  ReduceCost{"Do you want to reduce the cost
-  to maintain its own sync feature?"}
+  ReduceCost{{"Do you want to reduce the cost
+  to maintain its own sync feature?"}}
 
   Need["You should use this addon.
   (Please note that your addon become
