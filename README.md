@@ -13,14 +13,26 @@ This project aims to provide a small addon supporting both Desktop and Android, 
 
 ## Do you need to use this addon?
 
-### Send Tabs from Desktop (to other devices: Desktop or Android)
+```mermaid
+%%{init: {"flowchart": {"htmlLabels": false}} }%%
+flowchart TD;
+  HasOwnSync["Does your addon has
+  its own Sync feature?"]
+  BothSupport["Does your addon support
+  both Desktop and Android?"]
+  ReduceCost["Do you want to reduce the cost
+  to maintain its own sync feature?"]
+  Need["You should use this addon.
+  (Please note that your addon become
+  dependeing on this addon.)"]
+  NoNeed["You don't need to use this addon."]
 
-Does your addon have its own "Send Tabs to Device" feature?
+  HasOwnSync-->|Yes|BothSupport
+  HasOwnSync-->|No|Need
 
-* Yes: You don't need to use this addon.
-  * Of course you can reduce the cost to develop its owne sync feature, if your addon accepts dependency to this addon.
-* No: *You should use this addon via its API.*
+  BothSupport-->|Yes|ReduceCost
+  BothSupport-->|No|Need
 
-### Send Tabs from Android (to other devices: mainly Desktop)
-
-You don't need to use this addon because Fenix's built-in feature is the easiest way to send tabs from Android to Desktop.
+  ReduceCost-->|Yes|Need
+  ReduceCost-->|No|NoNeed
+```
