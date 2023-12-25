@@ -69,6 +69,94 @@ devices ==
 */
 ```
 
+#### Register your addon to this addon
+
+You need to register your addon to this addon, to receive some notification type messages.
+
+```javascript
+const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, { type: 'register-self' });
+```
+
+#### Unregister your addon from this addon
+
+You can unregister your addon from the known addons list in this addon.
+
+```javascript
+const succeeded = await browser.runtime.sendMessage(SIMULATOR_ID, { type: 'unregister-self' });
+```
+
+#### Detect newly connected other device
+
+This kind messages are delivered to your addon only when your addon is already registered.
+
+```javascript
+browser.runtime.onMessageExternal.addListener((message, sender) => {
+  switch (sender.id) {
+    case SIMULATOR_ID:
+      switch (message.type) {
+        case 'device-added':
+          console.log('NEW OTHER DEVICE IS ADDED: ', {
+            id:        message.device.id,
+            platform:  message.device.platform,
+            name:      message.device.name,
+            icon:      message.device.icon,
+            timestamp: message.device.timestmap,
+          });
+          break;
+      }
+      break;
+  }
+});
+```
+
+#### Detect updatings of a known device
+
+This kind messages are delivered to your addon only when your addon is already registered.
+
+```javascript
+browser.runtime.onMessageExternal.addListener((message, sender) => {
+  switch (sender.id) {
+    case SIMULATOR_ID:
+      switch (message.type) {
+        case 'device-updated':
+          console.log('DEVICE IS UPDATED: ', {
+            id:        message.device.id,
+            platform:  message.device.platform,
+            name:      message.device.name,
+            icon:      message.device.icon,
+            timestamp: message.device.timestmap,
+          });
+          break;
+      }
+      break;
+  }
+});
+```
+
+#### Detect disconnection of a known device
+
+This kind messages are delivered to your addon only when your addon is already registered.
+
+```javascript
+browser.runtime.onMessageExternal.addListener((message, sender) => {
+  switch (sender.id) {
+    case SIMULATOR_ID:
+      switch (message.type) {
+        case 'device-removed':
+          console.log('DEVICE IS REMOVED: ', {
+            id:        message.device.id,
+            platform:  message.device.platform,
+            name:      message.device.name,
+            icon:      message.device.icon,
+            timestamp: message.device.timestmap,
+          });
+          break;
+      }
+      break;
+  }
+});
+```
+
 ### Sender side
 
 #### Send tabs to a specific device
@@ -139,6 +227,9 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
 If your addon returns `false` explicitly by the listener, then this addon won't open received tabs.
 Otherwise tabs are opened on the device.
 
+You don't need to register your addon before receiving tabs.
+Messages will be notified to your addon, if any tabs are sent from another device.
+
 #### Receive generic messages from other devices
 
 ```javascript
@@ -159,4 +250,7 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
   }
 });
 ```
+
+You don't need to register your addon before receiving messages.
+Messages will be notified to your addon, if any tabs are sent from another device.
 
