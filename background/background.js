@@ -151,7 +151,7 @@ Sync.onMessage.addListener(async message => {
           to:        message.to,
           tabs:      body.tabs,
         }).then(result => {
-          if (result === false)) {
+          if (result === false) {
             log('receiving of tabs is canceled by the receiver addon ', message.body.senderId);
             return;
           }
