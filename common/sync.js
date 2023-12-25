@@ -25,7 +25,7 @@ export const onObsoleteDevice = new EventListenerManager();
 
 let mMyDeviceInfo = null;
 
-async function getMyDeviceInfo() {
+export async function getMyDeviceInfo() {
   if (!configs.syncDeviceInfo || !configs.syncDeviceInfo.id) {
     const newDeviceInfo = await generateDeviceInfo();
     if (!configs.syncDeviceInfo)

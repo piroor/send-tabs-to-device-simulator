@@ -39,8 +39,12 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
       break;
 
     case Constants.kAPI_TYPE_LIST_DEVICES:
-      return configs.$loaded.then(() => {
-        return configs.syncDevices;
+      return configs.$loaded.then(async () => {
+        const myDeviceInfo = await Sync.getMyDeviceInfo();
+        return Object.entries(configs.syncDevices).map(([id, device]) => {
+          device.myself = device.id == myDeviceInfo.id;
+          return device;
+        });
       });
 
     case Constants.kAPI_TYPE_REGISTER_SELF:
