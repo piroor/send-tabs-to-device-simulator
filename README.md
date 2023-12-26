@@ -1,5 +1,7 @@
 # Send Tabs to Device Simulator
 
+Related bug: [1625257 - Support |storage.sync| API](https://bugzilla.mozilla.org/show_bug.cgi?id=1625257)
+
 This is a Firefox addon to send/receive tabs and other messages between devices, based on WebExtensions API's sync storage.
 
 ## Motivation
