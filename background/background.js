@@ -86,6 +86,21 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
   }
 });
 
+browser.runtime.onInstalled.addListener(async () => {
+  await configs.$loaded;
+  await Promise.all(configs.knownExternalAddons.map(async addon => {
+    try {
+      await browser.runtime.sendMessage(addon.id, {
+        type: Constants.kAPI_TYPE_NOTIFY_READY,
+      });
+    }
+    catch(error) {
+      log('failed to notify "ready": unregister addon ', addon.id, error);
+      configs.knownExternalAddons = configs.knownExternalAddons.filter(knownAddon => knownAddon.id != addon.id);
+    }
+  }));
+});
+
 Sync.onMessage.addListener(async message => {
   log('Sync.onMessage ', message);
 

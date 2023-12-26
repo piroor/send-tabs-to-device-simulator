@@ -85,6 +85,41 @@ You can unregister your addon from the known addons list in this addon.
 const succeeded = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { type: 'unregister-self' });
 ```
 
+#### Detect this addon is loaded
+
+When this addon is loaedd, it will notify a `ready` message to your addon which was registered at the previous session.
+Your addon may use it to trigger its initialization process for cases when this addon is loaded after your addon is loaded.
+
+```javascript
+async function initSync() {
+  await Promise.all([
+    browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { type: 'register-self' }),
+    browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { type: 'list-devices' })
+      .then(devices => {
+        // more initialization process based on the list of fetched devices
+        ...
+      }),
+  ]);
+}
+
+// Initialization on the startup: it will fail if your addon is loaded before
+// the simulator addon is loaded.
+browser.runtime.onInstalled.addListener(initSync);
+
+browser.runtime.onMessageExternal.addListener((message, sender) => {
+  switch (sender.id) {
+    case SEND_TABS_SIMULATOR_ID:
+      switch (message.type) {
+        case 'ready':
+          // Failsafe: retry initialization after the simulator addon is loaded.
+          initSync();
+          break;
+      }
+      break;
+  }
+});
+```
+
 #### Detect newly connected other device
 
 This kind messages are delivered to your addon only when your addon is already registered.
