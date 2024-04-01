@@ -4,6 +4,8 @@ Related bug: [1625257 - Support |storage.sync| API](https://bugzilla.mozilla.org
 
 This is a Firefox addon to send/receive tabs and other messages between devices, based on WebExtensions API's sync storage.
 
+**Important note: This project is now stalled because the key feature `storage.sync` is not available on Android yet. After it become available this will restart. **
+
 ## Motivation
 
 Firefox does not allow add-ons to send pages to other devices via Firefox Sync (See also [1417183 - Provide a WebExtensions API-based way to send pages between devices](https://bugzilla.mozilla.org/show_bug.cgi?id=1417183).)
