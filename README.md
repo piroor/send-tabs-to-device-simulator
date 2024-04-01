@@ -1,35 +1,35 @@
 # Send Tabs to Device Simulator
 
-Related bug: [1625257 - Support |storage.sync| API](https://bugzilla.mozilla.org/show_bug.cgi?id=1625257)
+Related bug: [1625257 - Support |storage.sync| API](https://bugzilla.mozilla.org/show_bug.cgi?id=1625257).
 
 This is a Firefox addon to send/receive tabs and other messages between devices, based on WebExtensions API's sync storage.
 
 ## Motivation
 
-Firefox does not allow addons to send pages to other devices via Firefox Sync (See also [1417183 - Provide a web extensions API-based way to send pages between devices](https://bugzilla.mozilla.org/show_bug.cgi?id=1417183).)
-Thus, some addons having demand to simulate Firefox's native features like Tree Style Tab need to simulate the "Send Tabs to Device" feature with `storage.sync`.
+Firefox does not allow add-ons to send pages to other devices via Firefox Sync (See also [1417183 - Provide a WebExtensions API-based way to send pages between devices](https://bugzilla.mozilla.org/show_bug.cgi?id=1417183).)
+Thus, some add-ons having demand to simulate Firefox's native features like Tree Style Tab need to simulate the "Send Tabs to Device" feature with `storage.sync`.
 But there is a problem: such addons cannot send tabs to Android devices, if the addon does not support Firefox for Android aka Fenix.
 
 Addons for Fenix have many restrictions, so some addons cannot support both Firefox (on desktop PC environments) and Fenix.
-This project aims to provide a small addon supporting both Desktop and Android, and providing APIs for other addons to send tabs between devices.
+This project aims to provide a small addon supporting both desktop and Android, and providing APIs for other addons to send tabs between devices.
 
 ## Do you need to use this addon?
 
 ```mermaid
 %%{init: {"flowchart": {"htmlLabels": false}} }%%
 flowchart TD;
-  HasOwnSync{{"Does your addon has
-  its own Sync feature?"}}
+  HasOwnSync{{"Does your addon have
+  its own sync feature?"}}
 
   BothSupport{{"Does your addon support
-  both Desktop and Android?"}}
+  both desktop and Android?"}}
 
   ReduceCost{{"Do you want to reduce the cost
-  to maintain its own sync feature?"}}
+  to maintain your own sync feature?"}}
 
   Need["You should use this addon.
-  (Please note that your addon become
-  dependeing on this addon.)"]
+  (Please note that your addon becomes
+  dependent upon this addon.)"]
 
   NoNeed["You don't need to use this addon."]
 
@@ -47,7 +47,7 @@ flowchart TD;
 
 ### Common
 
-#### Get devices information
+#### Get device information
 
 ```javascript
 const SEND_TABS_SIMULATOR_ID = 'send-tabs-to-device-simulator@piro.sakura.ne.jp';
@@ -73,7 +73,7 @@ devices ==
 
 #### Register your addon to this addon
 
-You need to register your addon to this addon, to receive some notification type messages.
+You need to register your addon to this addon, to receive some notification messages.
 
 ```javascript
 const succeeded = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { type: 'register-self' });
@@ -89,7 +89,7 @@ const succeeded = await browser.runtime.sendMessage(SEND_TABS_SIMULATOR_ID, { ty
 
 #### Detect this addon is loaded
 
-When this addon is loaedd, it will notify a `ready` message to your addon which was registered at the previous session.
+When this addon is loaded, it will notify a `ready` message to your addon, which was registered at the previous session.
 Your addon may use it to trigger its initialization process for cases when this addon is loaded after your addon is loaded.
 
 ```javascript
@@ -172,7 +172,7 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
 
 #### Detect disconnection of a known device
 
-This kind messages are delivered to your addon only when your addon is already registered.
+These kinds of messages are delivered to your addon only when your addon is already registered.
 
 ```javascript
 browser.runtime.onMessageExternal.addListener((message, sender) => {
@@ -217,7 +217,7 @@ succeeded == true (success) or false (failure)
 ```
 
 Please note that the returned value `true` does not mean tabs are successfully sent.
-For example it will become `true` even if there is no such device specified with the ID.
+For example, it will become `true`, even if there is no such device specified with the ID.
 
 #### Send a generic message to a specific device
 
@@ -235,7 +235,7 @@ succeeded == true (success) or false (failure)
 ```
 
 Please note that the returned value `true` does not mean the message is successfully sent.
-For example it will become `true` even if there is no such device specified with the ID.
+For example, it will become `true`, even if there is no such device specified with the ID.
 
 ### Receiver side
 
@@ -262,10 +262,10 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
 ```
 
 If your addon returns `false` explicitly by the listener, then this addon won't open received tabs.
-Otherwise tabs are opened on the device.
+Otherwise, tabs are opened on the device.
 
 You don't need to register your addon before receiving tabs.
-Messages will be notified to your addon, if any tabs are sent from another device.
+Messages will be notified to your addon, if any tabs are sent from another device. <!-- This is grammatically incorrect. -->
 
 #### Receive generic messages from other devices
 
@@ -289,5 +289,5 @@ browser.runtime.onMessageExternal.addListener((message, sender) => {
 ```
 
 You don't need to register your addon before receiving messages.
-Messages will be notified to your addon, if any tabs are sent from another device.
+Messages will be notified to your addon, if any tabs are sent from another device. <!-- This is grammatically incorrect. -->
 
